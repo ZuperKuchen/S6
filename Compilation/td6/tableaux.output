@@ -1,0 +1,1264 @@
+Terminaux inutilisés dans la grammaire
+
+   Def
+   Dep
+   NFon
+   NPro
+   Mp
+   Ind
+   T_err
+   T_bot
+   T_com
+
+
+Grammaire
+
+    0 $accept: MP $end
+
+    1 MP: L_vart C
+
+    2 E: E Pl T
+    3  | E Mo T
+    4  | E Or T
+    5  | E Lt T
+    6  | E Eq T
+    7  | T
+
+    8 T: T Mu F
+    9  | T And F
+   10  | Not F
+   11  | F
+
+   12 F: '(' E ')'
+   13  | I
+   14  | V
+   15  | NewAr TP '[' E ']'
+   16  | Et
+
+   17 Et: V '[' E ']'
+   18   | Et '[' E ']'
+
+   19 C: C Se Ca
+   20  | Ca
+
+   21 Ca: Et Af E
+   22   | V Af E
+   23   | Sk
+   24   | '{' C '}'
+   25   | If E Th C El Ca
+   26   | Wh E Do Ca
+
+   27 Argt: V ':' TP
+
+   28 TP: T_int
+   29   | T_ar TP
+
+   30 L_vart: %empty
+   31       | L_vartnn
+
+   32 L_vartnn: Var Argt
+   33         | L_vartnn ',' Var Argt
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+'(' (40) 12
+')' (41) 12
+',' (44) 33
+':' (58) 27
+'[' (91) 15 17 18
+']' (93) 15 17 18
+'{' (123) 24
+'}' (125) 24
+error (256)
+I (258) 13
+V (259) 14 17 22 27
+Def (260)
+Dep (261)
+NFon (262)
+NPro (263)
+Mp (264)
+Af (265) 21 22
+Sk (266) 23
+NewAr (267) 15
+Se (268) 19
+Ind (269)
+If (270) 25
+Th (271) 25
+El (272) 25
+Var (273) 32 33
+Wh (274) 26
+Do (275) 26
+Pl (276) 2
+Mo (277) 3
+Mu (278) 8
+And (279) 9
+Or (280) 4
+Not (281) 10
+Lt (282) 5
+Eq (283) 6
+T_int (284) 28
+T_err (285)
+T_bot (286)
+T_ar (287) 29
+T_com (288)
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (42)
+    à gauche: 0
+MP (43)
+    à gauche: 1, à droite: 0
+E (44)
+    à gauche: 2 3 4 5 6 7, à droite: 2 3 4 5 6 12 15 17 18 21 22
+    25 26
+T (45)
+    à gauche: 8 9 10 11, à droite: 2 3 4 5 6 7 8 9
+F (46)
+    à gauche: 12 13 14 15 16, à droite: 8 9 10 11
+Et (47)
+    à gauche: 17 18, à droite: 16 18 21
+C (48)
+    à gauche: 19 20, à droite: 1 19 24 25
+Ca (49)
+    à gauche: 21 22 23 24 25 26, à droite: 19 20 25 26
+Argt (50)
+    à gauche: 27, à droite: 32 33
+TP (51)
+    à gauche: 28 29, à droite: 15 27 29
+L_vart (52)
+    à gauche: 30 31, à droite: 1
+L_vartnn (53)
+    à gauche: 32 33, à droite: 31 33
+
+
+État 0
+
+    0 $accept: . MP $end
+    1 MP: . L_vart C
+   30 L_vart: . %empty  [V, Sk, If, Wh, '{']
+   31       | . L_vartnn
+   32 L_vartnn: . Var Argt
+   33         | . L_vartnn ',' Var Argt
+
+    Var  décalage et aller à l'état 1
+
+    $défaut  réduction par utilisation de la règle 30 (L_vart)
+
+    MP        aller à l'état 2
+    L_vart    aller à l'état 3
+    L_vartnn  aller à l'état 4
+
+
+État 1
+
+   27 Argt: . V ':' TP
+   32 L_vartnn: Var . Argt
+
+    V  décalage et aller à l'état 5
+
+    Argt  aller à l'état 6
+
+
+État 2
+
+    0 $accept: MP . $end
+
+    $end  décalage et aller à l'état 7
+
+
+État 3
+
+    1 MP: L_vart . C
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   19 C: . C Se Ca
+   20  | . Ca
+   21 Ca: . Et Af E
+   22   | . V Af E
+   23   | . Sk
+   24   | . '{' C '}'
+   25   | . If E Th C El Ca
+   26   | . Wh E Do Ca
+
+    V    décalage et aller à l'état 8
+    Sk   décalage et aller à l'état 9
+    If   décalage et aller à l'état 10
+    Wh   décalage et aller à l'état 11
+    '{'  décalage et aller à l'état 12
+
+    Et  aller à l'état 13
+    C   aller à l'état 14
+    Ca  aller à l'état 15
+
+
+État 4
+
+   31 L_vart: L_vartnn .  [V, Sk, If, Wh, '{']
+   33 L_vartnn: L_vartnn . ',' Var Argt
+
+    ','  décalage et aller à l'état 16
+
+    $défaut  réduction par utilisation de la règle 31 (L_vart)
+
+
+État 5
+
+   27 Argt: V . ':' TP
+
+    ':'  décalage et aller à l'état 17
+
+
+État 6
+
+   32 L_vartnn: Var Argt .
+
+    $défaut  réduction par utilisation de la règle 32 (L_vartnn)
+
+
+État 7
+
+    0 $accept: MP $end .
+
+    $défaut  accepter
+
+
+État 8
+
+   17 Et: V . '[' E ']'
+   22 Ca: V . Af E
+
+    Af   décalage et aller à l'état 18
+    '['  décalage et aller à l'état 19
+
+
+État 9
+
+   23 Ca: Sk .
+
+    $défaut  réduction par utilisation de la règle 23 (Ca)
+
+
+État 10
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   25 Ca: If . E Th C El Ca
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 25
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 11
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   26 Ca: Wh . E Do Ca
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 29
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 12
+
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   19 C: . C Se Ca
+   20  | . Ca
+   21 Ca: . Et Af E
+   22   | . V Af E
+   23   | . Sk
+   24   | . '{' C '}'
+   24   | '{' . C '}'
+   25   | . If E Th C El Ca
+   26   | . Wh E Do Ca
+
+    V    décalage et aller à l'état 8
+    Sk   décalage et aller à l'état 9
+    If   décalage et aller à l'état 10
+    Wh   décalage et aller à l'état 11
+    '{'  décalage et aller à l'état 12
+
+    Et  aller à l'état 13
+    C   aller à l'état 30
+    Ca  aller à l'état 15
+
+
+État 13
+
+   18 Et: Et . '[' E ']'
+   21 Ca: Et . Af E
+
+    Af   décalage et aller à l'état 31
+    '['  décalage et aller à l'état 32
+
+
+État 14
+
+    1 MP: L_vart C .  [$end]
+   19 C: C . Se Ca
+
+    Se  décalage et aller à l'état 33
+
+    $défaut  réduction par utilisation de la règle 1 (MP)
+
+
+État 15
+
+   20 C: Ca .
+
+    $défaut  réduction par utilisation de la règle 20 (C)
+
+
+État 16
+
+   33 L_vartnn: L_vartnn ',' . Var Argt
+
+    Var  décalage et aller à l'état 34
+
+
+État 17
+
+   27 Argt: V ':' . TP
+   28 TP: . T_int
+   29   | . T_ar TP
+
+    T_int  décalage et aller à l'état 35
+    T_ar   décalage et aller à l'état 36
+
+    TP  aller à l'état 37
+
+
+État 18
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   22 Ca: V Af . E
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 38
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 19
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   17   | V '[' . E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 39
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 20
+
+   13 F: I .
+
+    $défaut  réduction par utilisation de la règle 13 (F)
+
+
+État 21
+
+   14 F: V .  [$end, Se, Th, El, Do, Pl, Mo, Mu, And, Or, Lt, Eq, ')', ']', '}']
+   17 Et: V . '[' E ']'
+
+    '['  décalage et aller à l'état 19
+
+    $défaut  réduction par utilisation de la règle 14 (F)
+
+
+État 22
+
+   15 F: NewAr . TP '[' E ']'
+   28 TP: . T_int
+   29   | . T_ar TP
+
+    T_int  décalage et aller à l'état 35
+    T_ar   décalage et aller à l'état 36
+
+    TP  aller à l'état 40
+
+
+État 23
+
+   10 T: Not . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    '('    décalage et aller à l'état 24
+
+    F   aller à l'état 41
+    Et  aller à l'état 28
+
+
+État 24
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   12  | '(' . E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 42
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 25
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   25 Ca: If E . Th C El Ca
+
+    Th  décalage et aller à l'état 43
+    Pl  décalage et aller à l'état 44
+    Mo  décalage et aller à l'état 45
+    Or  décalage et aller à l'état 46
+    Lt  décalage et aller à l'état 47
+    Eq  décalage et aller à l'état 48
+
+
+État 26
+
+    7 E: T .  [$end, Se, Th, El, Do, Pl, Mo, Or, Lt, Eq, ')', ']', '}']
+    8 T: T . Mu F
+    9  | T . And F
+
+    Mu   décalage et aller à l'état 49
+    And  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 7 (E)
+
+
+État 27
+
+   11 T: F .
+
+    $défaut  réduction par utilisation de la règle 11 (T)
+
+
+État 28
+
+   16 F: Et .  [$end, Se, Th, El, Do, Pl, Mo, Mu, And, Or, Lt, Eq, ')', ']', '}']
+   18 Et: Et . '[' E ']'
+
+    '['  décalage et aller à l'état 32
+
+    $défaut  réduction par utilisation de la règle 16 (F)
+
+
+État 29
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   26 Ca: Wh E . Do Ca
+
+    Do  décalage et aller à l'état 51
+    Pl  décalage et aller à l'état 44
+    Mo  décalage et aller à l'état 45
+    Or  décalage et aller à l'état 46
+    Lt  décalage et aller à l'état 47
+    Eq  décalage et aller à l'état 48
+
+
+État 30
+
+   19 C: C . Se Ca
+   24 Ca: '{' C . '}'
+
+    Se   décalage et aller à l'état 33
+    '}'  décalage et aller à l'état 52
+
+
+État 31
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   21 Ca: Et Af . E
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 53
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 32
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   18   | Et '[' . E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 54
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 33
+
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   19 C: C Se . Ca
+   21 Ca: . Et Af E
+   22   | . V Af E
+   23   | . Sk
+   24   | . '{' C '}'
+   25   | . If E Th C El Ca
+   26   | . Wh E Do Ca
+
+    V    décalage et aller à l'état 8
+    Sk   décalage et aller à l'état 9
+    If   décalage et aller à l'état 10
+    Wh   décalage et aller à l'état 11
+    '{'  décalage et aller à l'état 12
+
+    Et  aller à l'état 13
+    Ca  aller à l'état 55
+
+
+État 34
+
+   27 Argt: . V ':' TP
+   33 L_vartnn: L_vartnn ',' Var . Argt
+
+    V  décalage et aller à l'état 5
+
+    Argt  aller à l'état 56
+
+
+État 35
+
+   28 TP: T_int .
+
+    $défaut  réduction par utilisation de la règle 28 (TP)
+
+
+État 36
+
+   28 TP: . T_int
+   29   | . T_ar TP
+   29   | T_ar . TP
+
+    T_int  décalage et aller à l'état 35
+    T_ar   décalage et aller à l'état 36
+
+    TP  aller à l'état 57
+
+
+État 37
+
+   27 Argt: V ':' TP .
+
+    $défaut  réduction par utilisation de la règle 27 (Argt)
+
+
+État 38
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   22 Ca: V Af E .  [$end, Se, El, '}']
+
+    Pl  décalage et aller à l'état 44
+    Mo  décalage et aller à l'état 45
+    Or  décalage et aller à l'état 46
+    Lt  décalage et aller à l'état 47
+    Eq  décalage et aller à l'état 48
+
+    $défaut  réduction par utilisation de la règle 22 (Ca)
+
+
+État 39
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   17 Et: V '[' E . ']'
+
+    Pl   décalage et aller à l'état 44
+    Mo   décalage et aller à l'état 45
+    Or   décalage et aller à l'état 46
+    Lt   décalage et aller à l'état 47
+    Eq   décalage et aller à l'état 48
+    ']'  décalage et aller à l'état 58
+
+
+État 40
+
+   15 F: NewAr TP . '[' E ']'
+
+    '['  décalage et aller à l'état 59
+
+
+État 41
+
+   10 T: Not F .
+
+    $défaut  réduction par utilisation de la règle 10 (T)
+
+
+État 42
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   12 F: '(' E . ')'
+
+    Pl   décalage et aller à l'état 44
+    Mo   décalage et aller à l'état 45
+    Or   décalage et aller à l'état 46
+    Lt   décalage et aller à l'état 47
+    Eq   décalage et aller à l'état 48
+    ')'  décalage et aller à l'état 60
+
+
+État 43
+
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   19 C: . C Se Ca
+   20  | . Ca
+   21 Ca: . Et Af E
+   22   | . V Af E
+   23   | . Sk
+   24   | . '{' C '}'
+   25   | . If E Th C El Ca
+   25   | If E Th . C El Ca
+   26   | . Wh E Do Ca
+
+    V    décalage et aller à l'état 8
+    Sk   décalage et aller à l'état 9
+    If   décalage et aller à l'état 10
+    Wh   décalage et aller à l'état 11
+    '{'  décalage et aller à l'état 12
+
+    Et  aller à l'état 13
+    C   aller à l'état 61
+    Ca  aller à l'état 15
+
+
+État 44
+
+    2 E: E Pl . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    T   aller à l'état 62
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 45
+
+    3 E: E Mo . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    T   aller à l'état 63
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 46
+
+    4 E: E Or . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    T   aller à l'état 64
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 47
+
+    5 E: E Lt . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    T   aller à l'état 65
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 48
+
+    6 E: E Eq . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    T   aller à l'état 66
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 49
+
+    8 T: T Mu . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    '('    décalage et aller à l'état 24
+
+    F   aller à l'état 67
+    Et  aller à l'état 28
+
+
+État 50
+
+    9 T: T And . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    '('    décalage et aller à l'état 24
+
+    F   aller à l'état 68
+    Et  aller à l'état 28
+
+
+État 51
+
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   21 Ca: . Et Af E
+   22   | . V Af E
+   23   | . Sk
+   24   | . '{' C '}'
+   25   | . If E Th C El Ca
+   26   | . Wh E Do Ca
+   26   | Wh E Do . Ca
+
+    V    décalage et aller à l'état 8
+    Sk   décalage et aller à l'état 9
+    If   décalage et aller à l'état 10
+    Wh   décalage et aller à l'état 11
+    '{'  décalage et aller à l'état 12
+
+    Et  aller à l'état 13
+    Ca  aller à l'état 69
+
+
+État 52
+
+   24 Ca: '{' C '}' .
+
+    $défaut  réduction par utilisation de la règle 24 (Ca)
+
+
+État 53
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   21 Ca: Et Af E .  [$end, Se, El, '}']
+
+    Pl  décalage et aller à l'état 44
+    Mo  décalage et aller à l'état 45
+    Or  décalage et aller à l'état 46
+    Lt  décalage et aller à l'état 47
+    Eq  décalage et aller à l'état 48
+
+    $défaut  réduction par utilisation de la règle 21 (Ca)
+
+
+État 54
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   18 Et: Et '[' E . ']'
+
+    Pl   décalage et aller à l'état 44
+    Mo   décalage et aller à l'état 45
+    Or   décalage et aller à l'état 46
+    Lt   décalage et aller à l'état 47
+    Eq   décalage et aller à l'état 48
+    ']'  décalage et aller à l'état 70
+
+
+État 55
+
+   19 C: C Se Ca .
+
+    $défaut  réduction par utilisation de la règle 19 (C)
+
+
+État 56
+
+   33 L_vartnn: L_vartnn ',' Var Argt .
+
+    $défaut  réduction par utilisation de la règle 33 (L_vartnn)
+
+
+État 57
+
+   29 TP: T_ar TP .
+
+    $défaut  réduction par utilisation de la règle 29 (TP)
+
+
+État 58
+
+   17 Et: V '[' E ']' .
+
+    $défaut  réduction par utilisation de la règle 17 (Et)
+
+
+État 59
+
+    2 E: . E Pl T
+    3  | . E Mo T
+    4  | . E Or T
+    5  | . E Lt T
+    6  | . E Eq T
+    7  | . T
+    8 T: . T Mu F
+    9  | . T And F
+   10  | . Not F
+   11  | . F
+   12 F: . '(' E ')'
+   13  | . I
+   14  | . V
+   15  | . NewAr TP '[' E ']'
+   15  | NewAr TP '[' . E ']'
+   16  | . Et
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+
+    I      décalage et aller à l'état 20
+    V      décalage et aller à l'état 21
+    NewAr  décalage et aller à l'état 22
+    Not    décalage et aller à l'état 23
+    '('    décalage et aller à l'état 24
+
+    E   aller à l'état 71
+    T   aller à l'état 26
+    F   aller à l'état 27
+    Et  aller à l'état 28
+
+
+État 60
+
+   12 F: '(' E ')' .
+
+    $défaut  réduction par utilisation de la règle 12 (F)
+
+
+État 61
+
+   19 C: C . Se Ca
+   25 Ca: If E Th C . El Ca
+
+    Se  décalage et aller à l'état 33
+    El  décalage et aller à l'état 72
+
+
+État 62
+
+    2 E: E Pl T .  [$end, Se, Th, El, Do, Pl, Mo, Or, Lt, Eq, ')', ']', '}']
+    8 T: T . Mu F
+    9  | T . And F
+
+    Mu   décalage et aller à l'état 49
+    And  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 2 (E)
+
+
+État 63
+
+    3 E: E Mo T .  [$end, Se, Th, El, Do, Pl, Mo, Or, Lt, Eq, ')', ']', '}']
+    8 T: T . Mu F
+    9  | T . And F
+
+    Mu   décalage et aller à l'état 49
+    And  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 3 (E)
+
+
+État 64
+
+    4 E: E Or T .  [$end, Se, Th, El, Do, Pl, Mo, Or, Lt, Eq, ')', ']', '}']
+    8 T: T . Mu F
+    9  | T . And F
+
+    Mu   décalage et aller à l'état 49
+    And  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 4 (E)
+
+
+État 65
+
+    5 E: E Lt T .  [$end, Se, Th, El, Do, Pl, Mo, Or, Lt, Eq, ')', ']', '}']
+    8 T: T . Mu F
+    9  | T . And F
+
+    Mu   décalage et aller à l'état 49
+    And  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 5 (E)
+
+
+État 66
+
+    6 E: E Eq T .  [$end, Se, Th, El, Do, Pl, Mo, Or, Lt, Eq, ')', ']', '}']
+    8 T: T . Mu F
+    9  | T . And F
+
+    Mu   décalage et aller à l'état 49
+    And  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 6 (E)
+
+
+État 67
+
+    8 T: T Mu F .
+
+    $défaut  réduction par utilisation de la règle 8 (T)
+
+
+État 68
+
+    9 T: T And F .
+
+    $défaut  réduction par utilisation de la règle 9 (T)
+
+
+État 69
+
+   26 Ca: Wh E Do Ca .
+
+    $défaut  réduction par utilisation de la règle 26 (Ca)
+
+
+État 70
+
+   18 Et: Et '[' E ']' .
+
+    $défaut  réduction par utilisation de la règle 18 (Et)
+
+
+État 71
+
+    2 E: E . Pl T
+    3  | E . Mo T
+    4  | E . Or T
+    5  | E . Lt T
+    6  | E . Eq T
+   15 F: NewAr TP '[' E . ']'
+
+    Pl   décalage et aller à l'état 44
+    Mo   décalage et aller à l'état 45
+    Or   décalage et aller à l'état 46
+    Lt   décalage et aller à l'état 47
+    Eq   décalage et aller à l'état 48
+    ']'  décalage et aller à l'état 73
+
+
+État 72
+
+   17 Et: . V '[' E ']'
+   18   | . Et '[' E ']'
+   21 Ca: . Et Af E
+   22   | . V Af E
+   23   | . Sk
+   24   | . '{' C '}'
+   25   | . If E Th C El Ca
+   25   | If E Th C El . Ca
+   26   | . Wh E Do Ca
+
+    V    décalage et aller à l'état 8
+    Sk   décalage et aller à l'état 9
+    If   décalage et aller à l'état 10
+    Wh   décalage et aller à l'état 11
+    '{'  décalage et aller à l'état 12
+
+    Et  aller à l'état 13
+    Ca  aller à l'état 74
+
+
+État 73
+
+   15 F: NewAr TP '[' E ']' .
+
+    $défaut  réduction par utilisation de la règle 15 (F)
+
+
+État 74
+
+   25 Ca: If E Th C El Ca .
+
+    $défaut  réduction par utilisation de la règle 25 (Ca)

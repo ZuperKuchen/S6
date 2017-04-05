@@ -1,0 +1,14 @@
+%{
+#include <stdin.h>
+
+
+  %}
+
+%start A
+
+%%
+A : S
+S : 'a' S 'b'
+    'a' 'b'
+    ;
+%%
